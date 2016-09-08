@@ -67,11 +67,9 @@ global = {
   system-system-spacing.basic-distance = #15
 }
 
-#(if (defined? 'systemCount) #{
-  \paper {
-    system-count = #systemCount %Suggests to Lilypond how many braces to use for this piece.
-  }
-     #})
+\paper {
+  system-count = #(if (defined? 'systemCount) systemCount) %Suggests to Lilypond how many braces to use for this piece.
+}
 
 #(if (not (defined? 'staffSize)) (define staffSize 20))
 
