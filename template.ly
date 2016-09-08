@@ -14,6 +14,7 @@ timeSignature = 4/4
 
 
 globalOverride = {
+  \tempo 4 = 110
   \aikenHeads
   % \sacredHarpHeads
 }
