@@ -1,0 +1,1 @@
+Lilypond templates for shape-note music
