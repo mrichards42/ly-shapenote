@@ -5,9 +5,9 @@
 %%                                   Setup                                   %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-title = "UNTITLED"
-poet = "<poet>, <date>"
-composer = "<composer>, <date>"
+title = "UNTITLED."
+poet = "<poet>, <date>."
+composer = "<composer>, <date>."
 pitch = bes % The written pitch; Set to relative major if song is in minor
 isMajor = ##f
 timeSignature = 4/4

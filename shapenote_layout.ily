@@ -16,9 +16,9 @@ global = {
 }
 
 \header {
-  title = \markup { \concat { \caps \title "." } }
-  poet = \markup { \markupKey \concat { \poet "." } }
-  composer = \markup { \concat { \composer "." } }
+  title = \markup { \caps \title }
+  poet = \markup { \markupKey \poet }
+  composer = \markup { \composer }
   tagline = ##f %Turns off annoying Lilypond version stamp on bottom of page
 }
 
