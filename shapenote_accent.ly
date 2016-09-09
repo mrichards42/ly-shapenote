@@ -109,7 +109,7 @@ shapeNoteAccent = #(define-music-function (parser location music)
                      (set! sn:accentedBeats #f)
                      (set! sn:dcMusic (list))
                      ; Accent
-                     (let* ((accentedMusic (music-map sn:accent (ac:unfoldMusic (event-chord-wrap! music parser)))))
+                     (let* ((accentedMusic (music-map sn:accent (ac:unfoldMusic (event-chord-wrap! (expand-repeat-notes! music) parser)))))
                        ;(display-scheme-music accentedMusic)
                        ;(display-scheme-music sn:dcMusic)
                        (if sn:hasDC
