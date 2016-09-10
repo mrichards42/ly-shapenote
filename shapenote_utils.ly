@@ -1,5 +1,9 @@
 % Utility functions for shapenote.ly
 
+#(define (is-empty music)
+   "Does this music have no duration?"
+   (= 0 (ly:moment-main-numerator (ly:music-length music))))
+
 #(define (sn:chord-map function music)
    "Same as lilypond music-map, but doesn't recurse into chords"
    (let ((es (ly:music-property music 'elements))

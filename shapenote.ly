@@ -83,10 +83,3 @@ solo = #(define-music-function (parser location music) (ly:music?)
 #(define-bar-line ".;" "." ";" "|")  % start
 #(define-bar-line ";." ";." "" "")   % end
 #(define-bar-line ";.;" ";.;" "" "") % double middle
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                                Utils                                      %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-#(define (is-empty music)
-   (= 0 (ly:moment-main-numerator (ly:music-length music))))
