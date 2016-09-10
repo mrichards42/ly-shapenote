@@ -113,28 +113,34 @@ global = {
 #(if (or (not (defined? 'altoMusic)) (is-empty altoMusic))
      (set! verseTenor #{ \lyricmode { \verseAlto \verseTenor } #}))
 
+% Common music operations
+fixMusic = #(define-music-function (parser location music) (ly:music?)
+   #{
+     \global \transpose do \pitch \fixStems #music
+   #})
+
 % Score for print -- to exclude a part, just delete it
 \score 
 {
   \new StaffGroup <<
     #(if (defined? 'trebleMusic) #{
-      \new Staff = "treble" { \global \transpose do \pitch \trebleMusic }
+      \new Staff = "treble" { \fixMusic \trebleMusic }
       \addlyrics { \verseTreble }
          #})
 
     #(if (defined? 'altoMusic)
          #{
-      \new Staff = "alto" { \global \transpose do \pitch \altoMusic }
+      \new Staff = "alto" { \fixMusic \altoMusic }
       \addlyrics { \verseAlto }
          #})
 
     #(if (defined? 'tenorMusic) #{
-      \new Staff = "tenor" { \global \transpose do \pitch \tenorMusic }
+      \new Staff = "tenor" { \fixMusic \tenorMusic }
       \addlyrics { \verseTenor }
          #})
 
     #(if (defined? 'bassMusic) #{
-      \new Staff = "bass" { \global \transpose do \pitch \bassMusic }
+      \new Staff = "bass" { \fixMusic \bassMusic }
       \addlyrics { \verseBass }
          #})
   >>

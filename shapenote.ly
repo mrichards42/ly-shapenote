@@ -1,5 +1,6 @@
 #(ly:set-option 'relative-includes #t)
 \include "shapenote_accent.ly"
+\include "shapenote_utils.ly"
 #(ly:set-option 'relative-includes #f)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
