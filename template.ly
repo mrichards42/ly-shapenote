@@ -8,8 +8,8 @@
 title = "Untitled."
 poet = "<poet>, <date>."
 composer = "<composer>, <date>."
-pitch = bes % The written pitch; Set to relative major if song is in minor
-isMajor = ##f
+pitch = bes     % The written pitch; Set to relative major if song is in minor
+isMajor = ##t   % Use ##t for major and ##f for minor
 timeSignature = 4/4
 
 
