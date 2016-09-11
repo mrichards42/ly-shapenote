@@ -1,0 +1,4 @@
+# Ignore lilypond output
+*.pdf
+*.mid
+
