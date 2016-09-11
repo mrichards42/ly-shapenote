@@ -46,6 +46,7 @@ A separate (hidden) score is created for midi output, which does the following:
 * Attempts to accent the music in sacred harp style with primary and secondary accents, according to the time signature.
     * This works by attaching dynamics to each note based on where it falls in the measure
     * The amount of accent can be adjusted:
+
         ```lilypond
         % These are the default settings
         \setAccentDynamics "ff" "f" "mp"   % primary, secondary, unaccented
