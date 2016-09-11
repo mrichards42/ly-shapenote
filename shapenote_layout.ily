@@ -90,6 +90,12 @@ global = {
     startRepeatType = #".;"
     endRepeatType = #";."
     doubleRepeatType = #";.;"
+    % Spacing tweaks
+    %\override SpacingSpanner #'base-shortest-duration = #(ly:make-moment 1/1)
+    %\override SpacingSpanner #'common-shortest-duration = #(ly:make-moment 1/1)
+    %\override SpacingSpanner #'shortest-duration-space = 0.5
+    %\override SpacingSpanner #'spacing-increment = 0.5
+    %\override NonMusicalPaperColumn.full-measure-extra-space = #0
   }
   \context {
     \Staff
@@ -101,6 +107,11 @@ global = {
     \override VerticalAxisGroup.nonstaff-nonstaff-spacing.minimum-distance = #0
     % Force hypens to appear
     \override LyricHyphen.minimum-distance = #1
+    % Spacing tweaks
+    %\override LyricHyphen.minimum-length = #0.3
+    %\override LyricHyphen.padding = #0.0
+    %\override LyricSpace.minimum-distance = #0.3
+    %\override LyricText #'word-space = #0.5
   }
 }
 
