@@ -4,6 +4,7 @@
    "Does this music have no duration?"
    (= 0 (ly:moment-main-numerator (ly:music-length music))))
 
+
 #(define (sn:chord-map function music)
    "Same as lilypond music-map, but doesn't recurse into chords"
    (let ((es (ly:music-property music 'elements))
@@ -30,4 +31,12 @@ fixStems = #(define-music-function (parser location music) (ly:music?)
                                   ; else return music as-is
                                   m))
                 music))
+
+
+% not-last-page for the header (for symmetry with not-first-page)
+#(define (not-last-page layout props arg)
+   (if (and (chain-assoc-get 'page:is-bookpart-last-page props #f)
+            (chain-assoc-get 'page:is-last-bookpart props #f))
+       empty-stencil
+       (interpret-markup layout props arg)))
 

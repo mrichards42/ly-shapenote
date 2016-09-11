@@ -26,12 +26,6 @@ global = {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                 Header                                    %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% not-last-page for the header
-#(define (not-last-page layout props arg) 
-   (if (and (chain-assoc-get 'page:is-bookpart-last-page props #f) 
-            (chain-assoc-get 'page:is-last-bookpart props #f)) 
-       empty-stencil 
-       (interpret-markup layout props arg)))
 
 % Header markup
 \paper {
