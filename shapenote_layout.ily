@@ -17,7 +17,7 @@ global = {
 }
 
 \header {
-  title = \markup { \caps \title }
+  title = \markup { #(string-upcase title) }
   poet = \markup { \markupKey \poet }
   composer = \markup { \composer }
   tagline = ##f %Turns off annoying Lilypond version stamp on bottom of page
