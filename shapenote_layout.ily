@@ -122,7 +122,7 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
 % Score for print -- to exclude a part, just delete it
 \score 
 {
-  \new StaffGroup <<
+  \new ChoirStaff <<
     #(if (defined? 'trebleMusic) #{
       \new Staff = "treble" { \fixMusic \trebleMusic }
       \addlyrics { \verseTreble }
