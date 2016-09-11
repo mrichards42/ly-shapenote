@@ -16,18 +16,18 @@ global = {
   #(if (defined? 'globalOverride) #{ \globalOverride #} )
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                 Header                                    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define the header
 \header {
   title = \markup { #(string-upcase title) }
   poet = \markup { \markupKey \poet }
   composer = \markup { \composer }
-  tagline = ##f %Turns off annoying Lilypond version stamp on bottom of page
+  tagline = ##f % Remove lilypond version
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%                                 Header                                    %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Header markup
+% Header layout on the page
 \paper {
   #(set-paper-size "letter" 'landscape)
   evenHeaderMarkup = \markup {
