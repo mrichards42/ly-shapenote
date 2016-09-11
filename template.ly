@@ -5,7 +5,7 @@
 %%                                   Setup                                   %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-title = "UNTITLED."
+title = "Untitled."
 poet = "<poet>, <date>."
 composer = "<composer>, <date>."
 pitch = bes % The written pitch; Set to relative major if song is in minor
