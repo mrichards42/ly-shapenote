@@ -60,10 +60,8 @@ global = {
   ragged-bottom = ##t
   % Increase the gap between systems (default=12)
   system-system-spacing.basic-distance = #15
-}
-
-\paper {
-  system-count = #(if (defined? 'systemCount) systemCount) %Suggests to Lilypond how many braces to use for this piece.
+  % Force this may braces if systemCount is defined
+  system-count = #(if (defined? 'systemCount) systemCount)
 }
 
 #(if (not (defined? 'staffSize)) (define staffSize 20))
@@ -108,6 +106,10 @@ global = {
     %\override LyricText #'word-space = #0.5
   }
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                              Score                                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Allow hiding lyrics
 #(if (and (defined? 'hideLyrics) hideLyrics)
@@ -159,7 +161,10 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
   >>
 }
 
-% Score for MIDI
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                 MIDI                                      %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \score {
   <<
     % Tenor first so we can use the repeats and DC's from the tenor line
