@@ -115,6 +115,13 @@ global = {
   }
 }
 
+% Allow hiding lyrics
+#(if (and (defined? 'hideLyrics) hideLyrics)
+     (begin
+      (set! verseTreble #{ \lyricmode { } #})
+      (set! verseAlto #{ \lyricmode { } #})
+      (set! verseTenor #{ \lyricmode { } #})
+      (set! verseBass #{ \lyricmode { } #})))
 
 % Shift verses if we are missing parts
 #(if (or (not (defined? 'trebleMusic)) (is-empty trebleMusic))
