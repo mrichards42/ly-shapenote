@@ -1,4 +1,5 @@
 \version "2.19.2"
+% Heavily modified from Robert Stoddard's lilypond templates: <http://www.bostonsing.org/music>
 
 global = {
   \key \pitch #(if isMajor #{ \major #} #{ \minor #})
