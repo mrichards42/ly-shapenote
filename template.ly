@@ -34,7 +34,8 @@ altoMusic = \relative do {
 tenorMusic = \relative do' {
 }
 
-bassMusic = \relative do, { \clef bass
+bassMusic = \relative do, {
+  \clef bass
 }
 
 
