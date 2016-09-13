@@ -169,37 +169,41 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
   <<
     % Tenor first so we can use the repeats and DC's from the tenor line
     #(if (defined? 'tenorMusic) #{
-      \new Staff = "tenorM" \shapeNoteAccent {
+      \new StaffGroup <<
+      \new Staff \with { instrumentName = #"Low Tenor" } \shapeNoteAccent {
         \global
         \transpose re \pitch
         \unfoldRepeats
         \tenorMusic
       }
-      \new Staff = "tenorF" \shapeNoteAccent {
+      \new Staff \with { instrumentName = #"High Tenor" } \shapeNoteAccent {
         \global
         \transpose re, \pitch % up an octave, plus transposition
         \unfoldRepeats
         \tenorMusic
       }
+      >>
          #})
 
     #(if (defined? 'trebleMusic) #{
-      \new Staff = "trebleM" \shapeNoteAccent {
+      \new StaffGroup <<
+      \new Staff \with { instrumentName = #"Low Treble" } \shapeNoteAccent {
         \global
         \transpose re \pitch
         \unfoldRepeats
         \trebleMusic
       }
-      \new Staff = "trebleF" \shapeNoteAccent {
+      \new Staff \with { instrumentName = #"High Treble" } \shapeNoteAccent {
         \global
         \transpose re, \pitch % up an octave, plus transposition
         \unfoldRepeats
         \trebleMusic
       }
+      >>
          #})
 
     #(if (defined? 'altoMusic) #{
-      \new Staff = "alto" \shapeNoteAccent {
+      \new Staff \with { instrumentName = #"Alto" } \shapeNoteAccent {
         \global
         % Bump up the alto volume a hair
         #(if (not sn:solo) #{ \set Staff.midiMaximumVolume = #0.8 #})
@@ -210,7 +214,7 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
          #})
 
     #(if (defined? 'bassMusic) #{
-      \new Staff = "bass" \shapeNoteAccent {
+      \new Staff \with { instrumentName = #"Bass" } \shapeNoteAccent {
         \global
         % Bump up the bass volume a hair
         #(if (not sn:solo) #{ \set Staff.midiMaximumVolume = #0.8 #})
@@ -220,7 +224,7 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
       }
          #})
   >>
-  % \layout {} %Uncomment to debug midi
+  %\layout { indent = #20 } %Uncomment to debug midi
   \midi {
     \tempo 4 = 160 % Reasonable default midi tempo
   }
