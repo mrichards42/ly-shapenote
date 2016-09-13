@@ -165,62 +165,68 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
 %%                                 MIDI                                      %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Common midi operations
+fixMidi = #(define-music-function (parser location music) (ly:music?)
+   #{
+     % Add articulations
+     \shapeNoteArticulate {
+       % Transpose one step down
+       \transpose re do {
+         % same as fixMusic
+         \global \transpose do \pitch { \unfoldRepeats #music }
+       }
+     }
+   #})
+
 \score {
   <<
     % Tenor first so we can use the repeats and DC's from the tenor line
     #(if (defined? 'tenorMusic) #{
       \new StaffGroup <<
-      \new Staff \with { instrumentName = #"Low Tenor" } \shapeNoteArticulate {
-        \global
-        \transpose re \pitch
-        \unfoldRepeats
-        \tenorMusic
-      }
-      \new Staff \with { instrumentName = #"High Tenor" } \shapeNoteArticulate {
-        \global
-        \transpose re, \pitch % up an octave, plus transposition
-        \unfoldRepeats
-        \tenorMusic
+      \new Staff \with { instrumentName = #"Low Tenor" }
+      { \fixMidi \tenorMusic }
+
+      \new Staff \with { instrumentName = #"High Tenor" }
+      {
+        \transpose do, do % up an octave
+        \fixMidi \tenorMusic
       }
       >>
          #})
 
     #(if (defined? 'trebleMusic) #{
       \new StaffGroup <<
-      \new Staff \with { instrumentName = #"Low Treble" } \shapeNoteArticulate {
-        \global
-        \transpose re \pitch
-        \unfoldRepeats
-        \trebleMusic
-      }
-      \new Staff \with { instrumentName = #"High Treble" } \shapeNoteArticulate {
-        \global
-        \transpose re, \pitch % up an octave, plus transposition
-        \unfoldRepeats
+      \new Staff \with { instrumentName = #"Low Treble" }
+      { \fixMidi \trebleMusic }
+
+      \new Staff \with { instrumentName = #"High Treble" }
+      {
+        \transpose do, do % up an octave
+        \fixMidi
         \trebleMusic
       }
       >>
          #})
 
     #(if (defined? 'altoMusic) #{
-      \new Staff \with { instrumentName = #"Alto" } \shapeNoteArticulate {
-        \global
-        % Bump up the alto volume a hair
-        #(if (not sn:solo) #{ \set Staff.midiMaximumVolume = #0.8 #})
-        \transpose re \pitch
-        \unfoldRepeats
-        \altoMusic
+      \new Staff \with { instrumentName = #"Alto" }
+      {
+        \fixMidi {
+          % Bump up the alto volume a hair
+          #(if (not sn:solo) #{ \set Staff.midiMaximumVolume = #0.8 #})
+          \altoMusic
+        }
       }
          #})
 
     #(if (defined? 'bassMusic) #{
-      \new Staff \with { instrumentName = #"Bass" } \shapeNoteArticulate {
-        \global
-        % Bump up the bass volume a hair
-        #(if (not sn:solo) #{ \set Staff.midiMaximumVolume = #0.8 #})
-        \transpose re \pitch
-        \unfoldRepeats
-        \bassMusic
+      \new Staff \with { instrumentName = #"Bass" }
+      {
+        \fixMidi {
+          % Bump up the bass volume a hair
+          #(if (not sn:solo) #{ \set Staff.midiMaximumVolume = #0.8 #})
+          \bassMusic
+        }
       }
          #})
   >>
