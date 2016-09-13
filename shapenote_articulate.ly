@@ -1,6 +1,7 @@
 \version "2.19.2"
 \include "articulate.ly"
-% Apply shape note accent
+
+% Apply shape note articulations
 
 % Globals
 #(define sn:debug #f)
@@ -49,8 +50,8 @@
                 (loop (cdr elements))))
           #f)))
 
-% Apply accent on a per-note basis
-#(define (sn:accent music)
+% Apply articulations on a per-note basis
+#(define (sn:articulate music)
    ;(ly:warning (_ "name: ~a, duration: ~a") (ly:music-property music 'name) (ly:music-length music))
 
    (if sn:debug (ly:warning (_ "name: ~a") (ly:music-property music 'name)))
@@ -126,8 +127,8 @@
    music)
 
 
-% \shapeNoteAccent { music }
-shapeNoteAccent = #(define-music-function (parser location music)
+% \shapeNoteArticulate { music }
+shapeNoteArticulate = #(define-music-function (parser location music)
                      (ly:music?)
                      ; Reset globals
                      (set! sn:beat (ly:make-moment 0))
@@ -136,14 +137,12 @@ shapeNoteAccent = #(define-music-function (parser location music)
                      (set! sn:accentedBeats #f)
                      (set! sn:dcMusic (list))
                      ; Accent
-                     (let* ((accentedMusic (music-map sn:accent (ac:unfoldMusic (event-chord-wrap! (expand-repeat-notes! music) parser)))))
-                       ;(display-scheme-music accentedMusic)
-                       ;(display-scheme-music sn:dcMusic)
+                     (let* ((newMusic (music-map sn:articulate (ac:unfoldMusic (event-chord-wrap! (expand-repeat-notes! music) parser)))))
                        (if sn:hasDC
-                           (ly:music-set-property! accentedMusic 'elements
-                             (append (ly:music-property accentedMusic 'elements)
+                           (ly:music-set-property! newMusic 'elements
+                             (append (ly:music-property newMusic 'elements)
                                (list (make-sequential-music sn:dcMusic)))))
-                       accentedMusic))
+                       newMusic))
 
 
 setAccentDynamics = #(define-scheme-function (parser location primary secondary unaccented)

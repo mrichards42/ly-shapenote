@@ -170,13 +170,13 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
     % Tenor first so we can use the repeats and DC's from the tenor line
     #(if (defined? 'tenorMusic) #{
       \new StaffGroup <<
-      \new Staff \with { instrumentName = #"Low Tenor" } \shapeNoteAccent {
+      \new Staff \with { instrumentName = #"Low Tenor" } \shapeNoteArticulate {
         \global
         \transpose re \pitch
         \unfoldRepeats
         \tenorMusic
       }
-      \new Staff \with { instrumentName = #"High Tenor" } \shapeNoteAccent {
+      \new Staff \with { instrumentName = #"High Tenor" } \shapeNoteArticulate {
         \global
         \transpose re, \pitch % up an octave, plus transposition
         \unfoldRepeats
@@ -187,13 +187,13 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
 
     #(if (defined? 'trebleMusic) #{
       \new StaffGroup <<
-      \new Staff \with { instrumentName = #"Low Treble" } \shapeNoteAccent {
+      \new Staff \with { instrumentName = #"Low Treble" } \shapeNoteArticulate {
         \global
         \transpose re \pitch
         \unfoldRepeats
         \trebleMusic
       }
-      \new Staff \with { instrumentName = #"High Treble" } \shapeNoteAccent {
+      \new Staff \with { instrumentName = #"High Treble" } \shapeNoteArticulate {
         \global
         \transpose re, \pitch % up an octave, plus transposition
         \unfoldRepeats
@@ -203,7 +203,7 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
          #})
 
     #(if (defined? 'altoMusic) #{
-      \new Staff \with { instrumentName = #"Alto" } \shapeNoteAccent {
+      \new Staff \with { instrumentName = #"Alto" } \shapeNoteArticulate {
         \global
         % Bump up the alto volume a hair
         #(if (not sn:solo) #{ \set Staff.midiMaximumVolume = #0.8 #})
@@ -214,7 +214,7 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
          #})
 
     #(if (defined? 'bassMusic) #{
-      \new Staff \with { instrumentName = #"Bass" } \shapeNoteAccent {
+      \new Staff \with { instrumentName = #"Bass" } \shapeNoteArticulate {
         \global
         % Bump up the bass volume a hair
         #(if (not sn:solo) #{ \set Staff.midiMaximumVolume = #0.8 #})
