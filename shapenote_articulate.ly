@@ -52,8 +52,6 @@
 
 % Apply articulations on a per-note basis
 #(define (sn:articulate music)
-   ;(ly:warning (_ "name: ~a, duration: ~a") (ly:music-property music 'name) (ly:music-length music))
-
    (if sn:debug (ly:warning (_ "name: ~a") (ly:music-property music 'name)))
 
    (case (ly:music-property music 'name)
@@ -116,12 +114,12 @@
      ((MarkEvent)
       (case (string->symbol (sn:markupText music))
         ((Fine.)
-         (if (ly:moment<? sn:beat sn:dcEndBeat) (ly:warning (_ "GOT FINE at: ~a") sn:beat))
+         (if (ly:moment<? sn:beat sn:dcEndBeat) (if sn:debug (ly:warning (_ "GOT FINE at: ~a") sn:beat)))
          (if (ly:moment<? sn:beat sn:dcEndBeat) (set! sn:dcEndBeat sn:beat)))
         ((D.C.) 
-         (ly:warning "GOT DC")
+         (if sn:debug (ly:warning "GOT DC"))
          (set! sn:hasDC #t))
-        (else (ly:warning (_ "Other Markup: ~s") (sn:markupText music))))))
+        (else (if sn:debug (ly:warning (_ "Other Markup: ~s") (sn:markupText music)))))))
    
    ; Return updated music
    music)
