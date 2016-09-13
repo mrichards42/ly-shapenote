@@ -111,6 +111,15 @@
 
      ((ContextSpeccedMusic) (add-to-dc music sn:beat))
 
+    ((PartialSet)
+     (if (not (ly:moment<? (ly:make-moment 0) sn:dcStartBeat)) ; Only the first measure can be a partial
+         (begin
+          (if sn:debug (ly:warning (_ "Partial ~a") (ly:duration-length (ly:music-property music 'duration))))
+          ; Increase the beat by (full measure - partial measure) for accenting
+          (set! sn:beat (ly:moment-add sn:beat (ly:moment-sub sn:beatsPerMeasure (ly:duration-length (ly:music-property music 'duration)))))
+          ; Update dc start
+          (if (ly:moment<? sn:dcStartBeat sn:beat) (set! sn:dcStartBeat sn:beat)))))
+
      ((MarkEvent)
       (case (string->symbol (sn:markupText music))
         ((Fine.)
@@ -133,6 +142,7 @@ shapeNoteArticulate = #(define-music-function (parser location music)
                      (set! sn:tempoCount #f)
                      (set! sn:beatsPerMeasure #f)
                      (set! sn:accentedBeats #f)
+                     (set! sn:dcStartBeat (ly:make-moment 0))
                      (set! sn:dcMusic (list))
                      ; Accent
                      (let* ((newMusic (music-map sn:articulate (ac:unfoldMusic (event-chord-wrap! (expand-repeat-notes! music) parser)))))
