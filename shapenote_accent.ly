@@ -15,7 +15,9 @@
                          ("6/4" . ((0/4 . primary) (3/4 . secondary)))
                          ("6/8" . ((0/8 . primary) (3/8 . secondary)))))
 
+#(define fermataFactor 2) % How much to scale fermatas? (configurable)
 #(define sn:accentDynamics '())
+#(define sn:tempoCount #f)
 #(define sn:dcMusic (list))
 #(define sn:dcStartBeat (ly:make-moment 0)) % The first beat of the DC
 #(define sn:dcEndBeat (ly:make-moment 500)) % One beat past the last beat of the DC (default to an absurdly high value
@@ -36,6 +38,16 @@
              (loop (car label))  ; Bounce between car and cdr
              (loop (cdr label))) ; until this isn't a list
          label)))
+
+% Find an articulation by type (expects event-chord-wrap!'ed music)
+#(define (sn:find-articulation music type)
+  (let loop ((elements (ly:music-property music 'elements)))
+    (if (pair? elements)
+          (let ((e (car elements)))
+            (if (equal? (ly:music-property e 'articulation-type) type)
+                e
+                (loop (cdr elements))))
+          #f)))
 
 % Apply accent on a per-note basis
 #(define (sn:accent music)
@@ -81,9 +93,23 @@
         (let* ((nextBeat (ly:moment-add sn:beat (ly:music-length music))))
           (add-to-dc music nextBeat)
           ; Add this note's duration to the beat counter
-          (set! sn:beat nextBeat))))
+          (set! sn:beat nextBeat))
 
-     ((TempoChangeEvent) (add-to-dc music sn:beat))
+        ; Check for fermata
+        (if (sn:find-articulation music "fermata")
+            ; Change tempo around the fermata
+            (let ((slowTempo (inexact->exact (floor (/ sn:tempoCount fermataFactor))))
+                  (normalTempo (inexact->exact (floor sn:tempoCount))))
+              (set! music (make-sequential-music (list #{ \tempo 4 = #slowTempo #} music #{ \tempo 4 = #normalTempo #})))))))
+
+     ((TempoChangeEvent)
+      (add-to-dc music sn:beat)
+      ; tempoCount is scaled assuming tempo-unit is 4
+      (let* ((moment (ly:duration-length (ly:music-property music 'tempo-unit)))
+             (n (ly:moment-main-numerator moment))
+             (d (ly:moment-main-denominator moment)))
+        (set! sn:tempoCount (* (ly:music-property music 'metronome-count) (/ (/ d n) 4)))))
+
      ((ContextSpeccedMusic) (add-to-dc music sn:beat))
 
      ((MarkEvent)
@@ -105,6 +131,7 @@ shapeNoteAccent = #(define-music-function (parser location music)
                      (ly:music?)
                      ; Reset globals
                      (set! sn:beat (ly:make-moment 0))
+                     (set! sn:tempoCount #f)
                      (set! sn:beatsPerMeasure #f)
                      (set! sn:accentedBeats #f)
                      (set! sn:dcMusic (list))
