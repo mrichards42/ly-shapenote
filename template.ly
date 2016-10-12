@@ -11,12 +11,11 @@ composer = "<composer>, <date>."
 pitch = bes     % The written pitch; Set to relative major if song is in minor
 isMajor = ##t   % Use ##t for major and ##f for minor
 timeSignature = 4/4
+shapes = \aikenHeads % use \aikenHeadsMinor for minor
 
 
 globalOverride = {
   \tempo 4 = 110
-  \aikenHeads
-  % \sacredHarpHeads
 }
 
 

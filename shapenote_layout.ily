@@ -6,7 +6,7 @@ global = {
   \time \timeSignature
   \numericTimeSignature
   \autoBeamOff
-  \aikenHeads
+  #(if (defined? 'shapes) #{ \shapes #} #{ \sacredHarpHeads #})
   \override NoteHead #'font-size = #1.125
   \override Staff.StaffSymbol #'thickness = #1
   \set Staff.midiInstrument = #"synth voice"
