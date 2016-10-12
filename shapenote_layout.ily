@@ -128,10 +128,12 @@ global = {
 #(if (or (not (defined? 'altoMusic)) (is-empty altoMusic))
      (set! verseTenor #{ \lyricmode { \verseAlto \verseTenor } #}))
 
+transposePitch = #(if isMajor #{ do #} #{ la, #})
+
 % Common music operations
 fixMusic = #(define-music-function (parser location music) (ly:music?)
    #{
-     \global \transpose do \pitch \fixStems #music
+     \global \transpose \transposePitch \pitch \fixStems #music
    #})
 
 % Score for print -- to exclude a part, just delete it
@@ -173,7 +175,7 @@ fixMidi = #(define-music-function (parser location music) (ly:music?)
        % Transpose one step down
        \transpose re do {
          % same as fixMusic
-         \global \transpose do \pitch { \unfoldRepeats #music }
+         \global \transpose \transposePitch \pitch { \unfoldRepeats #music }
        }
      }
    #})
