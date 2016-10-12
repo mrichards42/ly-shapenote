@@ -9,7 +9,7 @@ global = {
   #(if (defined? 'shapes) #{ \shapes #} #{ \sacredHarpHeads #})
   \override NoteHead #'font-size = #1.125
   \override Staff.StaffSymbol #'thickness = #1
-  \set Staff.midiInstrument = #"synth voice"
+  \set Staff.midiInstrument = #(if (defined? 'midiInstrument) midiInstrument "synth voice")
   \set Staff.midiMaximumVolume = #0.75
   #(if sn:solo #{ \set Staff.midiMaximumVolume = #0 #})
   \set Score.tempoHideNote = ##t
