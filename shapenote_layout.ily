@@ -140,24 +140,23 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
 \score 
 {
   \new ChoirStaff <<
-    #(if (defined? 'trebleMusic) #{
       \new Staff = "treble" { \fixMusic \trebleMusic }
+    #(if (and (defined? 'trebleMusic) (not (is-empty trebleMusic))) #{
       \addlyrics { \verseTreble }
          #})
 
-    #(if (defined? 'altoMusic)
-         #{
       \new Staff = "alto" { \fixMusic \altoMusic }
+    #(if (and (defined? 'altoMusic) (not (is-empty altoMusic))) #{
       \addlyrics { \verseAlto }
          #})
 
-    #(if (defined? 'tenorMusic) #{
       \new Staff = "tenor" { \fixMusic \tenorMusic }
+    #(if (and (defined? 'tenorMusic) (not (is-empty tenorMusic))) #{
       \addlyrics { \verseTenor }
          #})
 
-    #(if (defined? 'bassMusic) #{
       \new Staff = "bass" { \fixMusic \bassMusic }
+    #(if (and (defined? 'bassMusic) (not (is-empty bassMusic))) #{
       \addlyrics { \verseBass }
          #})
   >>
