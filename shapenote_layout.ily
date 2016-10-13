@@ -82,6 +82,7 @@ global = {
     % Hide brackets over volta repeats
     \override VoltaBracket #'style = #'dashed-line
     \override VoltaBracket #'dash-period = #0
+    \override VoltaBracket #'extra-offset = #'(2 . 0)
     startRepeatType = #".;"
     endRepeatType = #";."
     doubleRepeatType = #";.;"
