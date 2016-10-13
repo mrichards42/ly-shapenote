@@ -143,23 +143,27 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
 \score 
 {
   \new ChoirStaff <<
-      \new Staff = "treble" { \fixMusic \trebleMusic }
     #(if (and (defined? 'trebleMusic) (not (is-empty trebleMusic))) #{
+      \new Staff = "treble" % already has volta engraver -- don't need an extra one
+      { \fixMusic \trebleMusic }
       \addlyrics { \verseTreble }
          #})
 
-      \new Staff = "alto" { \fixMusic \altoMusic }
     #(if (and (defined? 'altoMusic) (not (is-empty altoMusic))) #{
+      \new Staff = "alto" \with { \consists "Volta_engraver" }
+      { \fixMusic \altoMusic }
       \addlyrics { \verseAlto }
          #})
 
-      \new Staff = "tenor" { \fixMusic \tenorMusic }
     #(if (and (defined? 'tenorMusic) (not (is-empty tenorMusic))) #{
+      \new Staff = "tenor" \with { \consists "Volta_engraver" }
+      { \fixMusic \tenorMusic }
       \addlyrics { \verseTenor }
          #})
 
-      \new Staff = "bass" { \fixMusic \bassMusic }
     #(if (and (defined? 'bassMusic) (not (is-empty bassMusic))) #{
+      \new Staff = "bass" \with { \consists "Volta_engraver" }
+      { \fixMusic \bassMusic }
       \addlyrics { \verseBass }
          #})
   >>
