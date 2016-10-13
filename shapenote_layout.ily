@@ -78,7 +78,10 @@ global = {
     \override StanzaNumber #'font-size = #-1
     \override StanzaNumber #'font-series = #'medium
     % Repeats
-    \override VoltaBracket #'stencil = ##f
+    %\override VoltaBracket #'stencil = ##f % Hide volta repeats altogether
+    % Hide brackets over volta repeats
+    \override VoltaBracket #'style = #'dashed-line
+    \override VoltaBracket #'dash-period = #0
     startRepeatType = #".;"
     endRepeatType = #";."
     doubleRepeatType = #";.;"
