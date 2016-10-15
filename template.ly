@@ -6,6 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 title = "Untitled."
+meter = "C.M."
 poet = "<poet>, <date>."
 composer = "<composer>, <date>."
 pitch = bes     % The written pitch

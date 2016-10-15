@@ -21,7 +21,7 @@ global = {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Define the header
 \header {
-  title = \markup { #(string-upcase title) }
+  title = \markup { #(string-upcase title) \meter }
   poet = \markup { \markupKey \poet }
   composer = \markup { \composer }
   tagline = ##f % Remove lilypond version
@@ -35,7 +35,7 @@ global = {
       \fill-line {
         \bold \fontsize #4
         \concat {
-          \on-the-fly #not-first-page \fromproperty #'header:title
+          \on-the-fly #not-first-page #(string-upcase title)
           \on-the-fly #not-first-page \on-the-fly #not-last-page "  Continued."
           \on-the-fly #not-first-page \on-the-fly #last-page "  Concluded."
         }
