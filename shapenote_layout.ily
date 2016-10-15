@@ -1,19 +1,21 @@
 \version "2.19.2"
 % Heavily modified from Robert Stoddard's lilypond templates: <http://www.bostonsing.org/music>
 
+#(if (not pitch) (ly:error "Pitch is not defined. example: pitch = c"))
+
 global = {
   \key \pitch #(if isMajor #{ \major #} #{ \minor #})
   \time \timeSignature
   \numericTimeSignature
   \autoBeamOff
-  #(if (defined? 'shapes) #{ \shapes #} #{ \sacredHarpHeads #})
+  \shapes
   \override NoteHead #'font-size = #1.125
   \override Staff.StaffSymbol #'thickness = #1
-  \set Staff.midiInstrument = #(if (defined? 'midiInstrument) midiInstrument "synth voice")
+  \set Staff.midiInstrument = \midiInstrument
   \set Staff.midiMaximumVolume = #0.75
   #(if sn:solo #{ \set Staff.midiMaximumVolume = #0 #})
   \set Score.tempoHideNote = ##t
-  #(if (defined? 'globalOverride) #{ \globalOverride #} )
+  \globalOverride
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -61,10 +63,8 @@ global = {
   % Increase the gap between systems (default=12)
   system-system-spacing.basic-distance = #15
   % Force this may braces if systemCount is defined
-  system-count = #(if (defined? 'systemCount) systemCount)
+  system-count = #(if (> systemCount 0) systemCount)
 }
-
-#(if (not (defined? 'staffSize)) (define staffSize 20))
 
 \layout {
   #(layout-set-staff-size staffSize)
@@ -144,25 +144,25 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
 \score 
 {
   \new ChoirStaff <<
-    #(if (and (defined? 'trebleMusic) (not (is-empty trebleMusic))) #{
+    #(if (not (is-empty trebleMusic)) #{
       \new Staff = "treble" % already has volta engraver -- don't need an extra one
       { \fixMusic \trebleMusic }
       \addlyrics { \verseTreble }
          #})
 
-    #(if (and (defined? 'altoMusic) (not (is-empty altoMusic))) #{
+    #(if (not (is-empty altoMusic)) #{
       \new Staff = "alto" \with { \consists "Volta_engraver" }
       { \fixMusic \altoMusic }
       \addlyrics { \verseAlto }
          #})
 
-    #(if (and (defined? 'tenorMusic) (not (is-empty tenorMusic))) #{
+    #(if (not (is-empty tenorMusic)) #{
       \new Staff = "tenor" \with { \consists "Volta_engraver" }
       { \fixMusic \tenorMusic }
       \addlyrics { \verseTenor }
          #})
 
-    #(if (and (defined? 'bassMusic) (not (is-empty bassMusic))) #{
+    #(if (not (is-empty bassMusic)) #{
       \new Staff = "bass" \with { \consists "Volta_engraver" }
       { \fixMusic \bassMusic }
       \addlyrics { \verseBass }
@@ -190,7 +190,7 @@ fixMidi = #(define-music-function (parser location music) (ly:music?)
 \score {
   <<
     % Tenor first so we can use the repeats and DC's from the tenor line
-    #(if (defined? 'tenorMusic) #{
+    #(if (not (is-empty tenorMusic)) #{
       \new StaffGroup <<
       \new Staff \with { instrumentName = #"Low Tenor" }
       { \fixMidi \tenorMusic }
@@ -203,7 +203,7 @@ fixMidi = #(define-music-function (parser location music) (ly:music?)
       >>
          #})
 
-    #(if (defined? 'trebleMusic) #{
+    #(if (not (is-empty trebleMusic)) #{
       \new StaffGroup <<
       \new Staff \with { instrumentName = #"Low Treble" }
       { \fixMidi \trebleMusic }
@@ -217,7 +217,7 @@ fixMidi = #(define-music-function (parser location music) (ly:music?)
       >>
          #})
 
-    #(if (defined? 'altoMusic) #{
+    #(if (not (is-empty altoMusic)) #{
       \new Staff \with { instrumentName = #"Alto" }
       {
         \fixMidi {
@@ -228,7 +228,7 @@ fixMidi = #(define-music-function (parser location music) (ly:music?)
       }
          #})
 
-    #(if (defined? 'bassMusic) #{
+    #(if (not (is-empty bassMusic)) #{
       \new Staff \with { instrumentName = #"Bass" }
       {
         \fixMidi {

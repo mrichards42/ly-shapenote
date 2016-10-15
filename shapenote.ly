@@ -4,6 +4,39 @@
 #(ly:set-option 'relative-includes #f)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                          Variable Defaults                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Header
+title = ""
+meter = ""
+poet = ""
+composer = ""
+pitch = ##f % require this to be defined
+isMajor = ##t
+
+% Music display/layout
+shapes = \sacredHarpHeads
+staffSize = 20
+systemCount = 0 % let lilypond decide
+globalOverride = {}
+midiInstrument = "voice oohs"
+
+% Music
+timeSignature = 4/4
+trebleMusic = {}
+altoMusic = {}
+tenorMusic = {}
+bassMusic = {}
+
+% Lyrics
+verseTreble = {}
+verseAlto = {}
+verseTenor = {}
+verseBass = {}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                Markup                                     %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 textFlat = \markup { \hspace #0.2 \raise #0.3 \smaller \smaller \flat }
