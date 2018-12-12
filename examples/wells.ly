@@ -22,6 +22,11 @@ globalOverride = {
 systemCount = 1
 staffSize = 19
 
+% many songs in the sacred harp force whole notes to point a certain direction
+% (including Wells), but not all of them
+wholeNoteStems = \stemDown
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                 Music                                     %%
