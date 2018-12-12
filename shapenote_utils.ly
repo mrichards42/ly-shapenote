@@ -32,6 +32,20 @@ fixStems = #(define-music-function (parser location music) (ly:music?)
                                   m))
                 music))
 
+% when there are multiple lines of lyrics in the same voice and they are wrapped in << >>
+% they end up being left aligned instead of centered under their note. This function fixes
+% the problem by explicitly stating that each line of lyrics are \lyricsto the enclosing voice
+makeLyrics = #(define-music-function (parser location voice music) (string? ly:music?)
+                "Set the voice for multiple lyrics"
+                (let* ((newMusic
+                        ; set \lyricsto for each nested Lyrics context
+                        (sn:chord-map (lambda (m)
+                                        (if (eqv? (ly:music-property m 'context-type) 'Lyrics)
+                                            #{ \new Lyrics \lyricsto #voice { #(ly:music-property m 'element) } #}
+                                            m))
+                          music)))
+                  ; Wrap the whole mess in a Lyrics context
+                  #{ \new Lyrics \lyricsto #voice { #newMusic } #}))
 
 % not-last-page for the header (for symmetry with not-first-page)
 #(define (not-last-page layout props arg)

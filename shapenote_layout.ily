@@ -145,27 +145,31 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
 {
   \new ChoirStaff <<
     #(if (not (is-empty trebleMusic)) #{
-      \new Staff = "treble" % already has volta engraver -- don't need an extra one
-      { \fixMusic \trebleMusic }
-      \addlyrics { \verseTreble }
+      \new Staff = "treble" << % already has volta engraver -- don't need an extra one
+        \new Voice = "treble" { \fixMusic \trebleMusic }
+        \makeLyrics "treble" \verseTreble
+      >>
          #})
 
     #(if (not (is-empty altoMusic)) #{
-      \new Staff = "alto" \with { \consists "Volta_engraver" }
-      { \fixMusic \altoMusic }
-      \addlyrics { \verseAlto }
+      \new Staff = "alto" \with { \consists "Volta_engraver" } <<
+        \new Voice = "alto" { \fixMusic \altoMusic }
+        \makeLyrics "alto" \verseAlto
+      >>
          #})
 
     #(if (not (is-empty tenorMusic)) #{
-      \new Staff = "tenor" \with { \consists "Volta_engraver" }
-      { \fixMusic \tenorMusic }
-      \addlyrics { \verseTenor }
+      \new Staff = "tenor" \with { \consists "Volta_engraver" } <<
+        \new Voice = "tenor" { \fixMusic \tenorMusic }
+        \makeLyrics "tenor" \verseTenor
+      >>
          #})
 
     #(if (not (is-empty bassMusic)) #{
-      \new Staff = "bass" \with { \consists "Volta_engraver" }
-      { \fixMusic \bassMusic }
-      \addlyrics { \verseBass }
+      \new Staff = "bass" \with { \consists "Volta_engraver" } <<
+        \new Voice = "bass" { \fixMusic \bassMusic }
+        \makeLyrics "bass" \verseBass
+      >>
          #})
   >>
 }
