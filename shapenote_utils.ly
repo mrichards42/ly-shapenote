@@ -20,14 +20,14 @@
                     (sn:chord-map function  e)))))
      (function music)))
 
-
 fixStems = #(define-music-function (parser location music) (ly:music?)
               "Fix stems on whole notes (always pointing down)"
               (sn:chord-map (lambda (m)
-                              (if (and (memq (ly:music-property m 'name) '(EventChord NoteEvent)) ; EventChord or NoteEvent
+                              (if (and wholeNoteStems
+                                       (memq (ly:music-property m 'name) '(EventChord NoteEvent)) ; EventChord or NoteEvent
                                        (not (ly:moment<? (ly:music-length m) (ly:make-moment 1 1)))) ; whole note or longer
                                   ; force stems down
-                                  (make-sequential-music (list #{ \once \stemDown #} m))
+                                  (make-sequential-music (list #{ \once \wholeNoteStems #} m))
                                   ; else return music as-is
                                   m))
                 music))

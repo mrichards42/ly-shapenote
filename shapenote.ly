@@ -21,6 +21,7 @@ staffSize = 20
 systemCount = 0 % let lilypond decide
 globalOverride = {}
 midiInstrument = "voice oohs"
+wholeNoteStems = ##f % set to \stemDown to override whole note stem direction
 
 % Music
 timeSignature = 4/4
