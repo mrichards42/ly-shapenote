@@ -72,6 +72,7 @@ global = {
   \context {
     \Score
     \remove "Bar_number_engraver" % Get rid of measure numbers at the beginning of each brace
+    \remove "Volta_engraver" % These will be added to each staff
     \override SpanBar #'transparent = ##t % Turn off staff lines between staves
     % Lyrics
     \override LyricText #'font-size = #-1
@@ -96,6 +97,7 @@ global = {
   \context {
     \Staff
     \override TimeSignature.break-visibility = #end-of-line-invisible
+    \consists "Volta_engraver"
   }
   \context {
     \Lyrics
@@ -145,28 +147,28 @@ fixMusic = #(define-music-function (parser location music) (ly:music?)
 {
   \new ChoirStaff <<
     #(if (not (is-empty trebleMusic)) #{
-      \new Staff = "treble" << % already has volta engraver -- don't need an extra one
+      \new Staff = "treble" <<
         \new Voice = "treble" { \fixMusic \trebleMusic }
         \makeLyrics "treble" \verseTreble
       >>
          #})
 
     #(if (not (is-empty altoMusic)) #{
-      \new Staff = "alto" \with { \consists "Volta_engraver" } <<
+      \new Staff = "alto" <<
         \new Voice = "alto" { \fixMusic \altoMusic }
         \makeLyrics "alto" \verseAlto
       >>
          #})
 
     #(if (not (is-empty tenorMusic)) #{
-      \new Staff = "tenor" \with { \consists "Volta_engraver" } <<
+      \new Staff = "tenor" <<
         \new Voice = "tenor" { \fixMusic \tenorMusic }
         \makeLyrics "tenor" \verseTenor
       >>
          #})
 
     #(if (not (is-empty bassMusic)) #{
-      \new Staff = "bass" \with { \consists "Volta_engraver" } <<
+      \new Staff = "bass" <<
         \new Voice = "bass" { \fixMusic \bassMusic }
         \makeLyrics "bass" \verseBass
       >>
